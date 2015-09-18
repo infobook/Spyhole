@@ -138,6 +138,24 @@ namespace Spyhole.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Таблица.
+        /// </summary>
+        internal static string frmR_lblDataSet {
+            get {
+                return ResourceManager.GetString("frmR_lblDataSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Результат.
+        /// </summary>
+        internal static string frmR_Title {
+            get {
+                return ResourceManager.GetString("frmR_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Сохранить в реестр.
         /// </summary>
         internal static string frmS_cmdSave2Reg {

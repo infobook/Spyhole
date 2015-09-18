@@ -151,6 +151,12 @@
   <data name="Folder" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Folder.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="frmR_lblDataSet" xml:space="preserve">
+    <value>Таблица</value>
+  </data>
+  <data name="frmR_Title" xml:space="preserve">
+    <value>Результат</value>
+  </data>
   <data name="frmS_cmdSave2Reg" xml:space="preserve">
     <value>Сохранить в реестр</value>
   </data>

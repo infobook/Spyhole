@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
+using System.Data;
 using CommandAS.Tools;
 using CommandAS.QueryLib;
 
@@ -100,12 +101,22 @@ namespace Spyhole
             {
               try
               {
-                if (qp.SetCurrentQueryByCode(li.code))
+                if (li.code > 0 && qp.SetCurrentQueryByCode(li.code))
                 {
+                  qp.pCurrentQuery.SetParamDefaultValueAsCurrent();
                   qp.Execute();
                   state.Code++;
                   state.Text = qp.pCurrentQuery.Name;
-                  state.IsFlag = qp.pResultSet != null && qp.pResultSet.Tables.Count > 0;
+                  state.IsFlag = false;
+                  if (qp.pResultSet != null && qp.pResultSet.Tables.Count > 0)
+                  {
+                    foreach (DataTable tab in qp.pResultSet.Tables)
+                      if (tab.Rows.Count > 0)
+                      {
+                        state.IsFlag = true;
+                        break;
+                      }
+                  }
                   if (state.IsFlag)
                   {
                     frm.pQueryPerformer = qp;
