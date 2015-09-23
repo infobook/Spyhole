@@ -13,24 +13,31 @@ namespace Spyhole
     [STAThread]
     static void Main(string[] args)
     {
-      //string fnSession = null;
-      //foreach (string prm in args)
-      //{
-      //  if (prm.ToLower().IndexOf("--session=") == 0)
-      //  {
-      //    fnSession = prm.Substring(10);
-      //  }
-      //  else if (prm.ToLower().IndexOf("-s=") == 0)
-      //  {
-      //    fnSession = prm.Substring(3);
-      //  }
-      //}
+      string fnSession = null;
+      bool isRun = false;
+      foreach (string prm in args)
+      {
+        if (prm.ToLower().IndexOf("--session=") == 0)
+        {
+          fnSession = prm.Substring(10);
+        }
+        else if (prm.ToLower().IndexOf("-s=") == 0)
+        {
+          fnSession = prm.Substring(3);
+        }
+        else if (prm.ToLower().IndexOf("--run") == 0 || prm.ToLower().IndexOf("-r") == 0)
+        {
+          isRun = true;
+        }
+      }
 
       if (!CheckOneInstance.IsInstanceExist(true, "Spyhole"))
       {
         Application.EnableVisualStyles();
         Application.SetCompatibleTextRenderingDefault(false);
-        Application.Run(new frmSpyhole());
+        frmSpyhole frm = new frmSpyhole();
+        frm.pIsRunAtOnce = isRun;
+        Application.Run(frm);
       }
     }
   }

@@ -24,6 +24,8 @@ namespace Spyhole
 
     public NotifyIcon pNi;
 
+    private bool _isRunAtOnce;
+    
     private bool _IsTrace
     {
       set
@@ -37,9 +39,15 @@ namespace Spyhole
       }
     }
 
+    public bool pIsRunAtOnce
+    {
+      set { _isRunAtOnce = value; }
+    }
+
     public frmSpyhole()
     {
       _sysShutdown = false;
+      _isRunAtOnce = false;
       _strTrace = new StringBuilder();
 
       _jn = new ProgramJournal();
@@ -111,6 +119,11 @@ namespace Spyhole
     void frmSpyhole_Load(object sender, EventArgs e)
     {
       LoadParametersFromRegister();
+      if (_isRunAtOnce)
+      {
+        OnCntMIRunClick(null, null);
+        _cmdOk_Click(null, null);
+      }
     }
 
     void _bw_DoWork(object sender, DoWorkEventArgs e)
@@ -170,6 +183,7 @@ namespace Spyhole
         _jn.Debug = "Spyhole finished";
       }
 
+      SetNIMenuEnabledOnOff();
     }
 
     private void _OnClosing(object sender, CancelEventArgs e)
@@ -254,7 +268,6 @@ namespace Spyhole
     private void OnCntMICancelClick(object sender, EventArgs e)
     {
       _bw.CancelAsync();
-      SetNIMenuEnabledOnOff();
     }
 
     //private void OnCntMITraceClick(object sender, EventArgs e)
@@ -271,12 +284,8 @@ namespace Spyhole
     //  доступность/недоступность пунктов контекстного меню у трея
     private void SetNIMenuEnabledOnOff()
     {
-      //if (_thdRunTask != null)
-      //  pNi.ContextMenu.MenuItems[1].Text = "Pause";
-      //else
-      //  pNi.ContextMenu.MenuItems[1].Text = "Run";
-
-      //pNi.ContextMenu.MenuItems[2].Enabled = _thdRunTask != null;
+      pNi.ContextMenu.MenuItems[1].Enabled = !_bw.IsBusy;
+      pNi.ContextMenu.MenuItems[2].Enabled = !pNi.ContextMenu.MenuItems[1].Enabled;
     }
 
     private void _tsbStart_Click(object sender, EventArgs e)

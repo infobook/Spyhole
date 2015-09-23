@@ -72,6 +72,7 @@ namespace Spyhole
       catch { }
 
       _resizeTabCol();
+      //this.TopMost = true;
     }
 
     void _cmdOk_Click(object sender, EventArgs e)
